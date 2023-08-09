@@ -3,7 +3,7 @@ const listContainer = document.getElementById("list-container");
 
 function addList() {
   if (inputBox.value === "") {
-    alert("you must type something !");
+    alert("You must type something!");
   } else {
     let li = document.createElement("li");
     li.innerHTML = inputBox.value;
@@ -11,10 +11,17 @@ function addList() {
     let span = document.createElement("span");
     span.innerHTML = "\u00d7";
     li.appendChild(span);
+    inputBox.value = "";
+    saveData();
   }
-  inputBox.value = "";
-  saveData();
 }
+
+inputBox.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addList();
+  }
+});
+
 listContainer.addEventListener(
   "click",
   function (e) {
@@ -28,14 +35,6 @@ listContainer.addEventListener(
   },
   false
 );
-
-// function saveData() {
-//   localStorage.setItem("data", listContainer.innerHTML);
-// }
-// function showList() {
-//   localStorage.innerHTML = localStorage.getItem("data");
-// }
-// showList();
 
 function saveData() {
   localStorage.setItem("data", listContainer.innerHTML);
